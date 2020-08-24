@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dz22</title>
+    <style>
+        .red {
+            background-color: red;
+            left: 0;
+            top: 0;
+        }
+
+        .blue {
+            background-color: blue;
+            left: 0;
+            top: 0;
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+
+<div id="round" class="circle red"></div>
+<div id="secondRound" class="circle blue"></div>
+
+<script>
+    let startDate = Date.now();
+    let bodyWidth = document.body.clientWidth;
+    let circleRed = document.querySelector('.red');
+    let positionCircleRedLeft = getComputedStyle(circleRed).left;
+    let positionCircleRedTop = getComputedStyle(circleRed).top;
+
+    let positionCircleRedLeftCut = +positionCircleRedLeft.substring(0, positionCircleRedLeft.length-2);
+    let positionCircleRedTopCut = +positionCircleRedLeft.substring(0, positionCircleRedTop.length-2);
+
+    let timeDuration = Date.now() - startDate;
+
+    let anim = setInterval(function () {
+        if (positionCircleRedLeftCut < bodyWidth) {
+            positionCircleRedLeftCut += timeDuration * 2;
+        } else {
+            positionCircleRedLeftCut = -100;
+            positionCircleRedTopCut += 100;
+        }
+        circleRed.style.left = positionCircleRedLeftCut + 'px';
+        circleRed.style.top = positionCircleRedTopCut + 'px';
+    }, 1000 / 90);
+
+    let step = 0;
+    let blue = document.getElementById('secondRound');
+    function anime() {
+        step += 0.5;
+        blue.style.top = step + 'px';
+        requestAnimationFrame(anime);
+    }
+    requestAnimationFrame(anime);
+
+</script>
+
+</body>
+</html>
